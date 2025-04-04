@@ -3,24 +3,29 @@
 #include "constant.h"
 #include "genCode.h"
 
+HMODULE hModuleGlobal;
+
 void hook() {
     FreeLibraryAndExitThread(hModule, 0);
 }
 
-void console() {
+DWORD WINAPI console() {
     AllocConsole();
     FILE* f;
     freopen_s(&f, "CONOUT$", "w", stdout);
     std::cout << "Console Created" << std::endl;
+
     while (true) {
         if (GetAsyncKeyState(VK_END)) break;
         if (GetAsyncKeyState(VK_UP)) localPlayerPtr->pos.x += 5;
         if (GetAsyncKeyState(VK_DOWN)) localPlayerPtr->pos.x -= 5;
         //if (input == "print") std::cout << "Local Player Ptr" << localPlayerPtr << std::endl;
+        Sleep(1);
     }
     if (f) fclose(f);
     FreeConsole();
-    FreeLibraryAndExitThread(hModule, 0);
+    FreeLibraryAndExitThread(hModuleGlobal, 0);
+    return 0;
 }
 
 BOOL APIENTRY DllMain( HMODULE hModule,
@@ -31,7 +36,8 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        CloseHandle(CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)console, hModule, 0, 0));
+        hModuleGlobal = hModule;
+        CloseHandle(CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)console, nullptr, 0, nullptr));
         //CloseHandle(CreateThread(0, 0, (LPTHREAD_START_ROUTINE)hook, 0, 0, 0));
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
