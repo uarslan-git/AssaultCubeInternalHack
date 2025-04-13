@@ -17,8 +17,8 @@ DWORD WINAPI console() {
 
     while (true) {
         if (GetAsyncKeyState(VK_END)) break;
-        if (GetAsyncKeyState(VK_UP)) localPlayerPtr->pos.x += 5;
-        if (GetAsyncKeyState(VK_DOWN)) localPlayerPtr->pos.x -= 5;
+        if (GetAsyncKeyState(VK_UP)) localPlayerPtr->Position.z += 5;
+        if (GetAsyncKeyState(VK_DOWN)) localPlayerPtr->Position.z -= 5;
         //if (input == "print") std::cout << "Local Player Ptr" << localPlayerPtr << std::endl;
         Sleep(1);
     }
