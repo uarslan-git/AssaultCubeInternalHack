@@ -27,12 +27,18 @@
     <ClCompile Include="genCode.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="geom.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="genCode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

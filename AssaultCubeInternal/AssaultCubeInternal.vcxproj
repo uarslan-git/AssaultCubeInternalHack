@@ -88,6 +88,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -156,10 +158,12 @@
     <ClCompile Include="constant.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="genCode.cpp" />
+    <ClCompile Include="geom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constant.h" />
     <ClInclude Include="genCode.h" />
+    <ClInclude Include="geom.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

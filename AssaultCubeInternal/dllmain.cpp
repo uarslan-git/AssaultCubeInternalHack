@@ -1,5 +1,6 @@
 #include <iostream>
 #include <windows.h>
+#include <string>
 #include "constant.h"
 #include "genCode.h"
 
@@ -12,14 +13,27 @@ void hook() {
 DWORD WINAPI console() {
     AllocConsole();
     FILE* f;
+    
     freopen_s(&f, "CONOUT$", "w", stdout);
+    freopen_s(&f, "CONIN$", "r", stdin);
     std::cout << "Console Created" << std::endl;
+    
 
     while (true) {
+        std::string input;
+        std::cin >> input;
         if (GetAsyncKeyState(VK_END)) break;
-        if (GetAsyncKeyState(VK_UP)) localPlayerPtr->Position.z += 5;
-        if (GetAsyncKeyState(VK_DOWN)) localPlayerPtr->Position.z -= 5;
-        //if (input == "print") std::cout << "Local Player Ptr" << localPlayerPtr << std::endl;
+        if (GetAsyncKeyState(VK_UP)) localPlayerPtr->position.z += 5;
+        if (GetAsyncKeyState(VK_DOWN)) localPlayerPtr->position.z -= 5;
+        if (input == "pl")
+            std::cout << "number of players" << numPlayers << std::endl;
+        if (input == "ent") {
+            for (int i = 1; i < numPlayers; i++) {
+                if (players->players[i] == nullptr || players->players[i]->vtable == nullptr)
+                    break;
+                std::cout << "Entrity " << i << "Health: " << players->players[i]->health << std::endl;
+            }
+        }
         Sleep(1);
     }
     if (f) fclose(f);
