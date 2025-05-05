@@ -157,11 +157,13 @@
   <ItemGroup>
     <ClCompile Include="constant.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="esp.cpp" />
     <ClCompile Include="genCode.cpp" />
     <ClCompile Include="geom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constant.h" />
+    <ClInclude Include="esp.h" />
     <ClInclude Include="genCode.h" />
     <ClInclude Include="geom.h" />
   </ItemGroup>

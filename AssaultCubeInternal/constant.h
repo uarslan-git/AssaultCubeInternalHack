@@ -7,5 +7,6 @@ extern uintptr_t exeBaseAdress;
 
 extern Player* localPlayerPtr;
 
+extern uintptr_t playersAdress;
 extern EntityList* players;
-extern int numPlayers;
+extern int* numPlayers;

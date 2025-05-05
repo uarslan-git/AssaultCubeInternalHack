@@ -3,11 +3,17 @@
 #include <string>
 #include "constant.h"
 #include "genCode.h"
+#include "esp.h"
 
 HMODULE hModuleGlobal;
 
 void hook() {
-    FreeLibraryAndExitThread(hModule, 0);
+    while (true) {
+        ESP::aimbot();
+        if (GetAsyncKeyState(VK_END)) break;
+        Sleep(10);
+    }
+    //return 0;
 }
 
 DWORD WINAPI console() {
@@ -15,26 +21,26 @@ DWORD WINAPI console() {
     FILE* f;
     
     freopen_s(&f, "CONOUT$", "w", stdout);
-    freopen_s(&f, "CONIN$", "r", stdin);
+    //freopen_s(&f, "CONIN$", "r", stdin);
     std::cout << "Console Created" << std::endl;
-    
-
+   
     while (true) {
-        std::string input;
-        std::cin >> input;
+        //system("cls");
+        std::string input = "ent";
+        //std::cin >> input;
         if (GetAsyncKeyState(VK_END)) break;
-        if (GetAsyncKeyState(VK_UP)) localPlayerPtr->position.z += 5;
-        if (GetAsyncKeyState(VK_DOWN)) localPlayerPtr->position.z -= 5;
+        if (GetAsyncKeyState(VK_UP)) localPlayerPtr->position.z += 0.5;
+        if (GetAsyncKeyState(VK_DOWN)) localPlayerPtr->viewAngles.x -= 0.5;
         if (input == "pl")
-            std::cout << "number of players" << numPlayers << std::endl;
+            std::cout << "number of players" << *numPlayers << std::endl;
         if (input == "ent") {
-            for (int i = 1; i < numPlayers; i++) {
-                if (players->players[i] == nullptr || players->players[i]->vtable == nullptr)
-                    break;
-                std::cout << "Entrity " << i << "Health: " << players->players[i]->health << std::endl;
+            for (int i = 0; i < *numPlayers+1; i++) {
+                if (players->Players[i] == nullptr)
+                    continue;
+                    std::cout << "Entity " << i << "Health: " << players->Players[i]->health << std::endl;
             }
         }
-        Sleep(1);
+        Sleep(50);
     }
     if (f) fclose(f);
     FreeConsole();
@@ -52,7 +58,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     case DLL_PROCESS_ATTACH:
         hModuleGlobal = hModule;
         CloseHandle(CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)console, nullptr, 0, nullptr));
-        //CloseHandle(CreateThread(0, 0, (LPTHREAD_START_ROUTINE)hook, 0, 0, 0));
+        CloseHandle(CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)hook, nullptr, 0, nullptr));
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
     case DLL_PROCESS_DETACH:
