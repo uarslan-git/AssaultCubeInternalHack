@@ -26,7 +26,7 @@ DWORD WINAPI console() {
    
     while (true) {
         //system("cls");
-        std::string input = "ent";
+        std::string input = "";
         //std::cin >> input;
         if (GetAsyncKeyState(VK_END)) break;
         if (GetAsyncKeyState(VK_UP)) localPlayerPtr->position.z += 0.5;

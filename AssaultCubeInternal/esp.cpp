@@ -35,22 +35,17 @@ bool isValidTarget(Player* player) {
 
 Player* ESP::getNearestPlayer() {
 	Player* nearestPlayer = nullptr;
-	//float nearestDistance = 9999999.0f;
-	//for (int i = 0; i < *numPlayers + 1; i++) {
-	//	Player* player = players->players[i];
-	//	if (player->health > 100 || player->health <= 0 || !isInFov(localPlayerPtr, player->origin))
-	//		continue;
-	//	float distance = localPlayerPtr->position.Distance(player->position);
-	//	std::cout << "PLayer " << i << " distance: " << distance << std::endl;
-	//		if (distance < nearestDistance) {
-	//			nearestDistance = distance;
-	//			nearestPlayer = player;
-	//		}
-	//}
-
 	float nearestDistance = 9999999.0f;
-	for (int i = 0; i < *numPlayers + 1; i++) {
-		std::cout << "Player: " << i << " " << players->Players[i]->health << std::endl;
+	for (int i = 0; i < *numPlayers; i++) {
+		Player* player = players->Players[i];
+		if (player->health > 100 || player->health <= 0 || !isInFov(localPlayerPtr, player->origin) || player == nullptr)
+			continue;
+		float distance = localPlayerPtr->position.Distance(player->position);
+		std::cout << "PLayer " << i << " distance: " << distance << std::endl;
+		if (distance < nearestDistance) {
+			nearestDistance = distance;
+			nearestPlayer = player;
+		}
 	}
 	return nearestPlayer;
 }
